@@ -1,7 +1,7 @@
 {
-  "name": "shifts-backend-nodejs",
+  "name": "blog-backend-nodejs",
   "version": "0.1.0",
-  "description": "shifts API RESTfull nodejs",
+  "description": "blog API RESTfull nodejs",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
