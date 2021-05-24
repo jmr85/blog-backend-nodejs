@@ -66,8 +66,17 @@ var controller = {
         });
     },
     getArticles: (req, res) => {
-        // tenemos que hacer find para sacar los datos de la DB
-        Article.find({}).sort('-_id').exec((err, articles) => {
+
+        var query =  Article.find({});
+
+        var last = req.params.last;
+        console.log(last);
+
+        if(last || last != undefined){
+            query.limit(5);
+        }
+        // find
+        query.sort('-_id').exec((err, articles) => {
 
             if(err){
                 return res.status(500).send({
