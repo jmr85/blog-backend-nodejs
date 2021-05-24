@@ -28,22 +28,27 @@ var controller = {
             var validate_content = !validator.isEmpty(params.content);
         } catch (error) {
             return res.status(200).send({
+                status: 'error',
                 article: 'Faltan datos por enviar'
             });
         }
         if (validate_title && validate_content) {
+            //3. Crear el objeto a guardar
+
+            //4. Asignar valores al objeto
+
+            //5. Guardar el articulo
+
+            //6. Devolver una respuesta
             return res.status(200).send({
                 message: 'Validacion correcta'
             });
+        }else{
+            return res.status(200).send({
+                status: 'error',
+                message: 'Los datos no son validos !!!'
+            });
         }
-        //3. Crear el objeto a guardar
-
-        //4. Asignar valores al objeto
-
-        //5. Guardar el articulo
-
-        //6. Devolver una respuesta
-
         return res.status(200).send({
             article: params
         });
