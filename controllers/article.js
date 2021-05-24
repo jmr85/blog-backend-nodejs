@@ -34,15 +34,27 @@ var controller = {
         }
         if (validate_title && validate_content) {
             //3. Crear el objeto a guardar
-
+            var article = new Article();
             //4. Asignar valores al objeto
+            article.title =  params.title;
+            article.content =  params.content;
+            article.image =  null;
 
             //5. Guardar el articulo
-
-            //6. Devolver una respuesta
-            return res.status(200).send({
-                message: 'Validacion correcta'
-            });
+            article.save((err, articleStored) => {
+                if(err || !articleStored){
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'El articulo no se ha guardado !!!'
+                    });
+                }
+                  //6. Devolver una respuesta
+                return res.status(200).send({
+                    status: 'success',
+                    article: articleStored
+                });
+            })
+          
         }else{
             return res.status(200).send({
                 status: 'error',
