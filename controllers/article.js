@@ -122,6 +122,50 @@ var controller = {
                 article
             });
         });
+    },
+    update: (req, res) => {
+        // tomar el id de articulo que viene por la url
+        var articleId = req.params.id;
+        // tomar los datos (parametros) que llegan por put
+        var params = req.body;
+        // validar datos 
+        try {
+            var validate_title = !validator.isEmpty(params.title);
+            var validate_content = !validator.isEmpty(params.content);    
+        } catch (error) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'Faltan datos por enviar !!!'
+            });
+        }
+        if(validate_title && validate_content){
+            // Hacer un Find and Update
+            Article.findByIdAndUpdate({_id: articleId}, params, {new: true}, (err, articleUdate) => {
+                if (err) {
+                    return res.status(500).send({
+                        status: 'error',
+                        message: 'Error al actualizar !!!'
+                    });
+                }
+                if (!articleUdate){
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'No existe el articulo !!!'
+                    });
+                }
+                return res.status(200).send({
+                    status: 'success',
+                    article: articleUdate
+                });
+            });
+        }else{
+            // Devolver respuesta
+            return res.status(200).send({
+                status: 'error',
+                message: 'No existe el articulo !!!'
+            });
+        }
+        
     }
 };// end controller
 
